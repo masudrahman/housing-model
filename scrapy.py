@@ -1,22 +1,18 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import json
-from pprint import pprint
+import csv
 
+arr = []
 
-url = "http://www.zillow.com/homes/for_sale/San-Diego-CA-92122/96664_rid/size_sort/32.94386,-117.066193,32.697177,-117.435265_rect/11_zm/1_p/1_fr/"
+'''
+	Clean the data from the csv file to sqft and price
+'''
+with open('redfin_2016-08-22-23-01-42_results.csv', 'rb') as csvfile:
+	reader = csv.reader(csvfile)
 
-driver = webdriver.Chrome()
-driver.get(url)
+	with open('cleanData.csv', 'wb') as cleanCSV:
+		writer = csv.writer(cleanCSV)
 
-x = driver.find_element_by_class_name('photo-cards')
-housing_cards = x.find_elements_by_tag_name('li')
-
-print len(housing_cards)
-
-# for housing_card in housing_cards:
-
-
-driver.close()
+		for row in reader:
+			if (len(row[10]) != 0):
+				writer.writerow( (row[10], row[6]) )
+			else:
+				continue

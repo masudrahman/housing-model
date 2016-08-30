@@ -1,5 +1,6 @@
 import numpy
 import csv
+import math
 
 '''
 Cost function
@@ -8,7 +9,10 @@ Cost function
 @param theta {matrix}
 '''
 def costFunction(inputX, outputY, theta):
-	print inputX.dot(theta)
+	J = math.pow(sum((inputX*theta)-outputY),2)
+	J = J/(2 * len(inputX))
+	return J
+
 
 # initialize theta to zeros
 theta = numpy.matrix(str(0) + ';' + str(0))
